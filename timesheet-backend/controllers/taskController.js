@@ -31,7 +31,7 @@ exports.getAllTasks = async (req, res) => {
     if (req.user.role !== 'manager') {
       return res.status(403).json({ message: 'Access denied.' });
     }
-    const tasks = await Task.find().populate('assignedTo', 'name email');
+    const tasks = await Task.find().populate('assignedTo');
     res.json({ tasks });
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });
