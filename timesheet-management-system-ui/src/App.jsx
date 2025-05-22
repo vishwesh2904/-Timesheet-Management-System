@@ -26,7 +26,7 @@ import NotFound from './pages/shared/NotFound.jsx';
 
 function App() {
   const { user, loading } = useAuth();
-  console.log(user);
+
   
   if (loading) {
     return (
