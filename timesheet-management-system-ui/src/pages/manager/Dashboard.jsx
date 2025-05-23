@@ -7,7 +7,7 @@ import TaskDistributionChart from '../../components/TaskDistributionChart.jsx';
 import TimeComparisonChart from '../../components/TimeComparisonChart.jsx';
 
 function ManagerDashboard() {
-  const base_url = "http://localhost:5000";
+  const base_url = "https://timesheet-management-system-api.vercel.app";
   const [stats, setStats] = useState({
     totalAssociates: 0,
     totalTasks: 0,
