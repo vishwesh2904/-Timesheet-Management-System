@@ -26,9 +26,10 @@ function ViewTimesheets() {
         const uniqueAssociates = [...new Set(response.data.timesheets?.map(ts => ts.userId))];
         setAssociates(uniqueAssociates.map(id => {
           const timesheet = response.data.timesheets?.find(ts => ts.userId === id);
+          console.log(timesheet.userId.name)
           return {
-            id,
-            name: timesheet?.name || 'Unknown'
+            id : timesheet.userId._id,
+            name: timesheet.userId.name || 'Unknown'
           };
         }));
         
@@ -60,12 +61,12 @@ function ViewTimesheets() {
 
   const filteredTimesheets = timesheets.filter(timesheet => {
     if (filters.status !== 'all') {
-      const isSubmitted = timesheet.submitted;
+      const isSubmitted = timesheet.status;
       if (filters.status === 'submitted' && !isSubmitted) return false;
       if (filters.status === 'draft' && isSubmitted) return false;
     }
     
-    if (filters.associate !== 'all' && timesheet.userId !== filters.associate) {
+    if (filters.associate !== 'all' && timesheet.userId._id !== filters.associate) {
       return false;
     }
     

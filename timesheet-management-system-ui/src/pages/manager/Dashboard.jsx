@@ -31,7 +31,7 @@ function ManagerDashboard() {
         const timesheets = timesheetsResponse.data.timesheets;
         
         // Calculate stats
-        const totalAssociates = new Set(tasks?.map(task => task.assignedTo)).size;
+        const totalAssociates = new Set(tasks?.map(task => task.assignedTo._id)).size;
         const totalTasks = tasks.length;
         const totalHoursPlanned = tasks?.reduce((sum, task) => sum + task.estimatedHours, 0);
         
@@ -92,7 +92,7 @@ function ManagerDashboard() {
             <Users className="h-6 w-6 text-blue-600" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-600">Total Associates</p>
+            <p className="text-sm font-medium text-gray-600">Total Assigned Associates</p>
             <p className="text-2xl font-bold text-gray-900">{stats.totalAssociates}</p>
           </div>
         </div>
@@ -183,7 +183,7 @@ function ManagerDashboard() {
                 recentTasks.map((task) => (
                   <tr key={task._id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {task.description} dfdg
+                      {task.description}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {task.assignedTo?.name || 'Unknown'}
