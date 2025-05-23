@@ -9,7 +9,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = "http://localhost:5000";
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();

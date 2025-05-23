@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { FileCheck, AlertCircle, Filter, ChevronDown, ChevronUp } from 'lucide-react';
 
 function ViewTimesheets() {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = "http://localhost:5000";
   const [timesheets, setTimesheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -239,7 +239,7 @@ function ViewTimesheets() {
                         </table>
                       </div>
                       
-                      {timesheet.submitted && (
+                      {timesheet.status && (
                         <div className="mt-4 text-xs text-gray-500">
                           Submitted on {format(parseISO(timesheet.submittedAt), 'MMM dd, yyyy HH:mm')}
                         </div>

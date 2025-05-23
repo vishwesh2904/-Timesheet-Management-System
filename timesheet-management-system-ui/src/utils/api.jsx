@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set base URL for API requests
-axios.defaults.baseURL = 'https://timesheet-management-system-api.vercel.app'; // Change this to your API URL
+axios.defaults.baseURL = 'http://localhost:5000'; // Change this to your API URL
 
 // Add request interceptor to include the auth token in all requests
 axios.interceptors.request.use(

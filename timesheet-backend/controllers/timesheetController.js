@@ -16,6 +16,7 @@ exports.saveTimesheet = async (req, res) => {
     } else {
       timesheet.entries = entries;
     }
+    console.log(timesheet)
     await timesheet.save();
     res.status(200).json({ message: 'Timesheet saved as draft.', timesheet });
   } catch (err) {
