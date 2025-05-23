@@ -15,40 +15,35 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   // Initialize auth state from localStorage
-  useEffect(() => {
+ useEffect(() => {
+  const initializeAuth = async () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        setLoading(true);
         const decoded = jwtDecode(token);
-        // Check if token is expired
         if (decoded.exp * 1000 < Date.now()) {
           handleLogout();
         } else {
-          // Set axios default header
-          axios.defaults.headers.common['Authorization'] = ` ${token}`;
-          // Fetch user profile
-          fetchUserProfile();
+          axios.defaults.headers.common['Authorization'] = `${token}`;
+          await fetchUserProfile(); 
         }
       } catch (error) {
         console.error('Invalid token:', error);
         handleLogout();
       }
-      finally {
-        setLoading(false);
-      }
-    } else {
-      setLoading(false);
     }
-  }, []);
+    setLoading(false); // <-- only after everything is resolved
+  };
+
+  initializeAuth();
+}, []);
+
 
   const fetchUserProfile = async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${base_url}/api/auth/profile`);
-      console.log(response.data)
       setUser(response.data.user);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching user profile:', error);
       handleLogout();
@@ -60,11 +55,7 @@ export function AuthProvider({ children }) {
 
   const handleLogin = async (credentials) => {
     try {
-      console.log(credentials)
-      
       const response = await axios.post(`${base_url}/api/auth/login`, credentials);
-
-     
       console.log(response.data)
       const { token } = response.data;
       
@@ -104,7 +95,7 @@ export function AuthProvider({ children }) {
 
   const handleLogout = () => {
     // Remove token from localStorage
-    // localStorage.removeItem('token');
+    localStorage.removeItem('token');
     
     // Remove axios default header
     delete axios.defaults.headers.common['Authorization'];

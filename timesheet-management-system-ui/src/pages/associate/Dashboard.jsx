@@ -29,7 +29,7 @@ function AssociateDashboard() {
         
         // Fetch timesheets
         const timesheetsResponse = await axios.get(`${base_url}/api/timesheets/my`);
-        const fetchedTimesheets = timesheetsResponse.timesheets;
+        const fetchedTimesheets = timesheetsResponse.data.timesheets;
         setTimesheets(fetchedTimesheets);
         
         // Filter today's tasks
@@ -42,6 +42,7 @@ function AssociateDashboard() {
         
         // Calculate stats
         const completedEntries = fetchedTimesheets?.flatMap(ts => ts.entries);
+        
         const tasksWithEntries = new Set(completedEntries?.map(entry => entry.taskId));
         
         // Count completed tasks (those with logged hours)
@@ -63,7 +64,7 @@ function AssociateDashboard() {
         });
         
         const currentWeekCompletedTasks = currentWeekTasks?.filter(task => 
-          completedEntries.some(entry => entry.taskId === task._id)
+          completedEntries?.some(entry => entry.taskId === task._id)
         );
         
         const weeklyCompletion = currentWeekTasks.length > 0 
@@ -233,11 +234,11 @@ function AssociateDashboard() {
                     </p>
                   </div>
                   <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    timesheet.submitted 
+                    timesheet.status === 'submitted' 
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-yellow-100 text-yellow-800'
                   }`}>
-                    {timesheet.submitted ? 'Submitted' : 'Draft'}
+                    {timesheet.status === 'submitted' ? 'Submitted' : 'Draft'}
                   </span>
                 </div>
               </li>

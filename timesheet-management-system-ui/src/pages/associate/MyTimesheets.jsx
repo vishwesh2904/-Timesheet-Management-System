@@ -398,11 +398,11 @@ function MyTimesheets() {
                     </p>
                   </div>
                   <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    timesheet.submitted 
+                    timesheet.status  === 'submitted'
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-yellow-100 text-yellow-800'
                   }`}>
-                    {timesheet.submitted ? 'Submitted' : 'Draft'}
+                    {   timesheet.status  === 'submitted'? 'Submitted' : 'Draft'}
                   </span>
                 </div>
               </li>

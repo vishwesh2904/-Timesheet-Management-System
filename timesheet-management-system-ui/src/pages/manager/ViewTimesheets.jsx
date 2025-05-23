@@ -179,7 +179,7 @@ function ViewTimesheets() {
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-yellow-100 text-yellow-800'
                       }`}>
-                        {timesheet.submitted ? 'Submitted' : 'Draft'}
+                        {timesheet?.status === 'submitted' ? 'Submitted' : 'Draft'}
                       </span>
                       <div className="ml-4">
                         {expandedTimesheets[timesheet._id] ? (

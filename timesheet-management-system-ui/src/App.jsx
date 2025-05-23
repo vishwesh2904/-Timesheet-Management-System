@@ -25,6 +25,8 @@ import Profile from './pages/shared/Profile.jsx';
 import NotFound from './pages/shared/NotFound.jsx';
 
 function App() {
+
+  
   const { user, loading } = useAuth();
 
   
@@ -36,16 +38,18 @@ function App() {
     );
   }
 
+ 
+
   return (
     <Routes>
       {/* Public Routes */}
       <Route element={<AuthLayout />}>
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" replace />} />
-        <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" replace />} />
+        <Route path="/login" element={!user  ? <Login /> : <Navigate to="/dashboard" replace />} />
+        <Route path="/register" element={!user  ? <Register /> : <Navigate to="/dashboard" replace />} />
       </Route>
       
       {/* Protected Routes */}
-      <Route element={<DashboardLayout />}>
+     {user && <Route element={<DashboardLayout />}>
         {/* Redirect to appropriate dashboard based on role */}
         <Route path="/dashboard" element={
           user ? (
@@ -81,7 +85,7 @@ function App() {
         
         {/* Shared Routes */}
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" replace />} />
-      </Route>
+      </Route>}
       
       {/* Root redirect */}
       <Route path="/" element={<Navigate to="/dashboard" replace />} />

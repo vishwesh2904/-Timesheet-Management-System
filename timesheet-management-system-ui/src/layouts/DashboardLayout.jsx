@@ -7,10 +7,12 @@ import {
 } from 'lucide-react';
 
 function DashboardLayout() {
-  const { user, logout } = useAuth();
+  const { user, logout  } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+ 
   
   const isActive = (path) => location.pathname === path;
   
