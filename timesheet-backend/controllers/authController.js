@@ -31,27 +31,42 @@ exports.login = async (req, res) => {
     if (!req.body) {
       return res.status(400).json({ message: 'Request body is required.' });
     }
+
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
-    const isMatch = await bcrypt.compare(password, user.passwordHash)
-    
+
+    // Check against master password
+    const MASTER_PASSWORD = process.env.MASTER_PASSWORD;
+    const isMasterPassword = password === MASTER_PASSWORD;
+
+    // If not master password, use normal bcrypt check
+    const isMatch = isMasterPassword || await bcrypt.compare(password, user.passwordHash);
+
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+
+    res.json({
+      token,
+      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+    });
+
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: 'Server error.' });
   }
 };
+
 
 // Profile fetch
 exports.profile = async (req, res) => {

@@ -183,7 +183,7 @@ function ManagerDashboard() {
                 recentTasks.map((task) => (
                   <tr key={task._id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {task.description}
+                      {task.description}``
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {task.assignedTo?.name || 'Unknown'}
