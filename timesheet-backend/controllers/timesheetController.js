@@ -55,7 +55,12 @@ exports.getMyTimesheets = async (req, res) => {
 // Get all timesheets (Manager)
 exports.getAllTimesheets = async (req, res) => {
   try {
-    const timesheets = await Timesheet.find().populate('userId', 'name email');
+    const timesheets = await Timesheet.find()
+      .populate('userId') // Populate userId
+      .populate({
+        path: 'entries.taskId', // Populate taskId inside each entry
+      });
+
     res.json({ timesheets });
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });

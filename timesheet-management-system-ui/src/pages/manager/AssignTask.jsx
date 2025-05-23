@@ -5,7 +5,7 @@ import { UserPlus, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 function AssignTask() {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = "http://localhost:5000";
   const [associates, setAssociates] = useState([]);
   const [formData, setFormData] = useState({
     description: '',
@@ -26,7 +26,7 @@ function AssignTask() {
         // If not, you might need to filter users with 'associate' role from a users endpoint
         const response = await axios.get(`${base_url}/api/users/associates`);
         setAssociates(response.data.associates);
-        if (response.data.length > 0) {
+        if (response.data.associates.length > 0) {
           setFormData(prev => ({ ...prev, assignedTo: response.data.associates[0]._id }));
         }
         setLoading(false);
@@ -43,7 +43,7 @@ function AssignTask() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(name, value);
+   
     // Clear error when user types
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
@@ -51,7 +51,7 @@ function AssignTask() {
   };
   
   const validate = () => {
-    console.log(formData)
+
     const newErrors = {};
     if (!formData.description.trim()) {
       newErrors.description = 'Task description is required';

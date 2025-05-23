@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { FileCheck, AlertCircle, Filter, ChevronDown, ChevronUp } from 'lucide-react';
 
 function ViewTimesheets() {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = "http://localhost:5000";
   const [timesheets, setTimesheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -157,16 +157,16 @@ function ViewTimesheets() {
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
                         <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                          timesheet.submitted ? 'bg-green-100' : 'bg-yellow-100'
+                           timesheet.status==='submitted' ? 'bg-green-100' : 'bg-yellow-100'
                         }`}>
                           <FileCheck className={`h-6 w-6 ${
-                            timesheet.submitted ? 'text-green-600' : 'text-yellow-600'
+                            timesheet.status ==='submitted' ? 'text-green-600' : 'text-yellow-600'
                           }`} />
                         </div>
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">
-                          {timesheet.userName || 'Unknown User'}
+                          {timesheet?.userId?.name || 'Unknown User'}
                         </div>
                         <div className="text-sm text-gray-500">
                           Week of {format(parseISO(timesheet.weekStart), 'MMM dd, yyyy')}
@@ -175,7 +175,7 @@ function ViewTimesheets() {
                     </div>
                     <div className="flex items-center">
                       <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        timesheet.submitted 
+                       timesheet.status ==='submitted'
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-yellow-100 text-yellow-800'
                       }`}>
@@ -208,16 +208,16 @@ function ViewTimesheets() {
                             {timesheet.entries.map((entry, index) => (
                               <tr key={index} className="hover:bg-gray-50">
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                  {format(parseISO(entry.date), 'MMM dd, yyyy')}
+                                  {format(parseISO(entry?.taskId?.date), 'MMM dd, yyyy')}
                                 </td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
-                                  {entry.taskDescription || 'Unknown Task'}
+                                  {entry?.taskId?.description || 'Unknown Task'}
                                 </td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                  {entry.estimatedHours || 'N/A'}
+                                  {entry?.taskId?.estimatedHours || 'N/A'}
                                 </td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
-                                  {entry.actualHours}
+                                  {entry?.taskId?.actualHours}
                                 </td>
                               </tr>
                             ))}
