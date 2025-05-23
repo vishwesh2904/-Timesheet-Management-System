@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import WeeklyHoursChart from '../../components/WeeklyHoursChart.jsx';
 
 function AssociateDashboard() {
-  const base_url = "http://localhost:5000";
+  const base_url = "https://timesheet-management-system-api.vercel.app";
   const [tasks, setTasks] = useState([]);
   const [timesheets, setTimesheets] = useState([]);
   const [todaysTasks, setTodaysTasks] = useState([]);
