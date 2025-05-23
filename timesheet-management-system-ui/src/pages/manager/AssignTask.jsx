@@ -213,7 +213,7 @@ function AssignTask() {
               >
                 {associates?.map(associate => (
                   <option key={associate._id} value={associate._id}>
-                    {associate.name} ({associate.email}) {associate._id}
+                    {associate.name} ({associate.email})
                   </option>
                 ))}
               </select>
