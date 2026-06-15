@@ -108,7 +108,7 @@ const TimeComparisonChart = ({ planned, actual }) => (
 function ManagerDashboard() {
 
   const [timeRange, setTimeRange] = useState('7d');
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const [stats, setStats] = useState({
     totalAssociates: 0,

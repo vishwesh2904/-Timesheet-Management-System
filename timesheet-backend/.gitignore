@@ -27,3 +27,6 @@ Thumbs.db
 
 # Coverage directory
 coverage/
+
+# Vercel
+.vercel

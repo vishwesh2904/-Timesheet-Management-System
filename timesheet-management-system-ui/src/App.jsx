@@ -88,7 +88,7 @@ function App() {
       </Route>}
       
       {/* Root redirect */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} replace />} />
       
       {/* 404 */}
       <Route path="*" element={<NotFound />} />

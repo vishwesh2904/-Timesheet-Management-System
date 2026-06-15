@@ -8,15 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-
-// Health check route
+// Connect to database (cached for serverless)
 connectDB();
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.use('/api', (req, res, next) => {
+  connectDB().then(() => next()).catch(next);
 });
 
 app.get('/health', (req, res) => {

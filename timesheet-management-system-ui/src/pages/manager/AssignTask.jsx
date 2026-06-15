@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserPlus, AlertCircle, Clock, Calendar, FileText, Users, Sparkles } from 'lucide-react';
 
 function AssignTask() {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [associates, setAssociates] = useState([]);
   const [formData, setFormData] = useState({
     description: '',

@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 
 function ViewTimesheets() {
-  const base_url = "https://timesheet-management-system-api.vercel.app";
+  const base_url = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const [timesheets, setTimesheets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
