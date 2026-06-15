@@ -8,9 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to database (cached for serverless)
-connectDB();
-
+// Middleware to ensure DB is connected for all API routes
 app.use('/api', (req, res, next) => {
   connectDB().then(() => next()).catch(next);
 });
