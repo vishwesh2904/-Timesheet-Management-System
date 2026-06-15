@@ -1,12 +1,21 @@
 require('dotenv').config();
 const connectDB = require('./config/db');
 const express = require('express');
-const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+
+// Manual CORS headers (works with Express 5 + Vercel serverless)
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
 
 // Middleware to ensure DB is connected for all API routes
 app.use('/api', (req, res, next) => {
