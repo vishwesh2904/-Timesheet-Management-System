@@ -31,4 +31,12 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/timesheets', timesheetRoutes);
 app.use('/api/users', userRoutes);
 
+// Start server only when run directly (not when imported by Vercel)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
 module.exports = app;
